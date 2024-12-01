@@ -24,6 +24,8 @@ public class Axel {
         this.field = f;
         this.x = x;
         this.y = y;
+        this.dx = 0;
+        this.dy = 0;
         this.surviving = true;
     }
 
@@ -86,10 +88,9 @@ public class Axel {
     /**setter computeMove
      * modifie les attribut dx et dy**/
     public void computeMove (){
-        // si les qttribut sont true alors il se déplace
+        // si les attribut sont true alors il se déplace
         if (jumping){
             setDy(-10);
-            System.out.println("je monte");
         }else if (right){
             setDx(10);
         }else if (left){
