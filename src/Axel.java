@@ -133,5 +133,6 @@ public class Axel {
     }
 
 
-    public void update() { }
+
+    public void update() {}
 }

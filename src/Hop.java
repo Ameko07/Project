@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class Hop {
     public static final int WIDTH = 400;
@@ -14,7 +15,8 @@ public class Hop {
     private GamePanel gamePanel;
 
     public Hop() {
-        this.field = new Field(WIDTH, HEIGHT);
+        ArrayList<Block> block = new ArrayList<>();
+        this.field = new Field(block,WIDTH, HEIGHT);
         this.axel = new Axel(field, WIDTH/2, field.START_ALTITUDE);
         this.gamePanel = new GamePanel(field, axel);
 

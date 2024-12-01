@@ -46,7 +46,6 @@ public class GamePanel extends JPanel implements KeyListener  {
         // boolean if and else are also good
         switch (keyCode){
 
-
             case KeyEvent.VK_UP: axel.setJumping(true);break;
             case KeyEvent.VK_DOWN: axel.setDiving(true);break;
             case KeyEvent.VK_LEFT: axel.setLeft(true);break;
@@ -64,7 +63,6 @@ public class GamePanel extends JPanel implements KeyListener  {
 
         // boolean if and else are also good
         switch (keyCode){
-
 
             case KeyEvent.VK_UP: axel.setJumping(false);break;
             case KeyEvent.VK_DOWN: axel.setDiving(false);break;

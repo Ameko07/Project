@@ -10,8 +10,7 @@ public class Field {
     // ensemble des blocks aléatoire
     private ArrayList<Block> ensBlock ;
 
-
-    public Field(int width, int height) {
+    /**public Field(int width, int height) {
         this.width = width;
         this.height = height;
         ArrayList<Block> blocks; // création de l'ensemble
@@ -25,15 +24,33 @@ public class Field {
         }
 
         this.ensBlock = blocks;
-    }
+    }**/
 
-    /*public Field(int width, int height,ArrayList<Block> blocks){
+    public Field(int width, int height){
         this.width = width;
         this.height = height;
-        this.ensBlock = blocks;
+        this.ensBlock = new ArrayList<>();
 
 
-    }*/
+    }
+
+    public Field(ArrayList<Block> EnsembleBlock, int width, int height) {
+        this.width = width;
+        this.height = height;
+        this.ensBlock = new ArrayList<>(EnsembleBlock);
+        if (EnsembleBlock == null || EnsembleBlock.isEmpty()) {
+            generateBlocks();
+        }
+    }
+
+    public void generateBlocks() { //génère aléatoirement des blocs sur le terrain
+        int alt = this.START_ALTITUDE;
+        while (alt < this.height) {
+            this.ensBlock.add(new Block(alt, this.width));
+            alt += this.ALTITUDE_GAP;
+        }
+
+    }
 
     // getter
 
