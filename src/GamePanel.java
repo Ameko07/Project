@@ -31,7 +31,7 @@ public class GamePanel extends JPanel implements KeyListener  {
             g.drawRect(b.getX(),b.getY(),b.getWidth(),10);
         }
 
-        g.fillOval(axel.getX(),axel.getY(),15,15);
+        g.fillOval(axel.getX(),axel.getY(),AXEL_WIDTH,AXEL_HEIGHT);
     }
 
     //methode of keyListener
@@ -79,5 +79,13 @@ public class GamePanel extends JPanel implements KeyListener  {
     @Override
     public void keyTyped(KeyEvent e) {
 
+    }
+
+    public static int getAxelWidth() {
+        return AXEL_WIDTH;
+    }
+
+    public static int getAxelHeight() {
+        return AXEL_HEIGHT;
     }
 }
