@@ -32,6 +32,11 @@ public class GamePanel extends JPanel implements KeyListener  {
         }
 
         g.fillOval(axel.getX(),axel.getY(),AXEL_WIDTH,AXEL_HEIGHT);
+
+
+//        JLabel score = new JLabel("score = ");
+//        score.setHorizontalAlignment((int) LEFT_ALIGNMENT);
+
     }
 
     //methode of keyListener

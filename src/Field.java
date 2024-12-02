@@ -59,8 +59,13 @@ public class Field {
         return ensBlock;
     }
 
+    public int getWidth() {
+        return width;
+    }
 
-
+    public int getHeight() {
+        return height;
+    }
 
     public void update() { }
 }

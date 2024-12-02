@@ -33,19 +33,26 @@ public class Hop {
         axel.update();
         field.update();
         frame.repaint();
+        over();
     }
 
     /**methode over ()
-     * @return true : boolean si axel touche la lave || false : boolean si axel est toujours dans la zonne ed jeu
+     * @return true : boolean si axel touche la lave || false : boolean si axel est toujours dans la zonne de   jeu
      * **/
     public boolean over() {
-        if (this.axel.getY() == HEIGHT){
-            return true;
-        }else {
-            return false;
-        }
-
+        return axel.isDead();
     }
+
+//    public boolean finPartie(){
+//        if (over()) {
+//            timer.stop();
+//            frame.remove(gamePanel);
+//            return true;
+//        }
+//        return false;
+//    }
+
+
 
     public static void main(String[] args) {
         Hop game = new Hop();

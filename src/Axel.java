@@ -75,6 +75,15 @@ public class Axel {
         this.right = right;
     }
 
+
+    public boolean getSurviving (){
+        return this.surviving ;
+    }
+
+    public boolean isDead(){
+        return y >= field.getHeight() ;
+    }
+
     // peut-être utiliser plutard
 
 
@@ -85,16 +94,30 @@ public class Axel {
         this.dy = dy;
     }
 
+    public void setSurviving(boolean surviving) {
+        this.surviving = surviving;
+    }
     /**setter computeMove
      * modifie les attribut dx et dy**/
     public void computeMove (){
         // si les attribut sont true alors il se déplace
-        if (jumping){
-            setDy(-10);
-        }else if (right){
-            setDx(10);
-        }else if (left){
-            setDx(-10);
+        if (jumping) {
+            dy = dy - (int)JUMP_SPEED;
+        }
+        if (right){
+            dx = dx + (int) LATERAL_SPEED;
+        }
+        if (left){
+            dx = dx - (int)LATERAL_SPEED;
+        }
+        if (diving) {
+            dy = dy + (int) DIVE_SPEED;
+        }
+        if (!jumping && !diving) {
+            dy = dy + (int) GRAVITY;
+        }
+        if (falling) {
+            dy = dy - (int) MAX_FALL_SPEED;
         }
     };
 
