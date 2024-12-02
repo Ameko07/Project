@@ -44,9 +44,9 @@ public class Field {
     }
 
     public void generateBlocks() { //génère aléatoirement des blocs sur le terrain
-        int alt = this.START_ALTITUDE;
+        int alt = this.START_ALTITUDE  ;
         while (alt < this.height) {
-            this.ensBlock.add(new Block(alt, this.width));
+            this.ensBlock.add(new Block(this.width, alt));
             alt += this.ALTITUDE_GAP;
         }
 

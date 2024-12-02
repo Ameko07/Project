@@ -13,11 +13,12 @@ public class Block {
 
     }
 
-    public Block (int alt, int fieldWidth) { //fieldWith est la largeur du terrain
+    public Block ( int fieldWidth,int alt) { //fieldWith est la largeur du terrain
         Random randomBlock = new Random();
-        this.y = alt;
+
         this.width = randomBlock.nextInt(50) + 50; //génère un entier entre 50 et 100 (niveau 0)
         this.x = randomBlock.nextInt(fieldWidth - this.width); //génère un entier entre 0 et la plage MAX de x
+        this.y = alt;
     }
 
     /**getter getWidth()

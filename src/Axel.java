@@ -90,11 +90,11 @@ public class Axel {
     public void computeMove (){
         // si les attribut sont true alors il se déplace
         if (jumping){
-            setDy(-10);
+            dy = (int) (dy - JUMP_SPEED);
         }else if (right){
-            setDx(10);
+            dx = (int ) (dx + LATERAL_SPEED);
         }else if (left){
-            setDx(-10);
+            dx = (int ) (dx - LATERAL_SPEED);
         }
     };
 

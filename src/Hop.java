@@ -17,7 +17,8 @@ public class Hop {
     public Hop() {
         ArrayList<Block> block = new ArrayList<>();
         this.field = new Field(block,WIDTH, HEIGHT);
-        this.axel = new Axel(field, WIDTH/2, field.START_ALTITUDE);
+        //this.axel = new Axel(field, WIDTH/2, field.START_ALTITUDE);
+        this.axel = new Axel(field, 10, 10);
         this.gamePanel = new GamePanel(field, axel);
 
         this.frame = new JFrame("Hop!");
