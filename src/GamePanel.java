@@ -20,6 +20,10 @@ public class GamePanel extends JPanel implements KeyListener  {
         this.axel = axel;
 
         setPreferredSize(new Dimension(field.width, field.height));
+        setFocusable(true);
+        requestFocusInWindow();
+        addKeyListener(this);
+
     }
 
     public void paintComponent(Graphics g) {
@@ -34,10 +38,10 @@ public class GamePanel extends JPanel implements KeyListener  {
         g.fillOval(axel.getX(),axel.getY(),AXEL_WIDTH,AXEL_HEIGHT);
 
 
-//        JLabel score = new JLabel("score = ");
-//        score.setHorizontalAlignment((int) LEFT_ALIGNMENT);
+
 
     }
+
 
     //methode of keyListener
 
@@ -52,7 +56,7 @@ public class GamePanel extends JPanel implements KeyListener  {
         // boolean if and else are also good
         switch (keyCode){
 
-            case KeyEvent.VK_UP: axel.setJumping(true);break;
+            case KeyEvent.VK_UP: axel.setJumping(true);System.out.println("saute");break;
             case KeyEvent.VK_DOWN: axel.setDiving(true);break;
             case KeyEvent.VK_LEFT: axel.setLeft(true);break;
             case KeyEvent.VK_RIGHT: axel.setRight(true);break;

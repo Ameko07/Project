@@ -20,6 +20,8 @@ public class Axel {
 
     private final Field field;
 
+    private int score = 0;
+
     public Axel(Field f, int x, int y) {
         this.field = f;
         this.x = x;
@@ -28,6 +30,7 @@ public class Axel {
         this.dy = 0;
         this.surviving = true;
     }
+
 
     /**getter getX()
      * @return x : int  **/
@@ -81,11 +84,27 @@ public class Axel {
     }
 
     public boolean isDead(){
+
         return y >= field.getHeight() ;
     }
 
     // peut-être utiliser plutard
 
+
+    public int getScore() {
+        return score;
+    }
+
+    public void calculScore(){
+        if (checkCollision()){
+            if (score <= field.getHeight()-y+10) {
+                score = field.getHeight()-(y + 10);
+            }
+        }
+
+
+
+    }
 
     public void setDx(int dx) {
         this.dx = dx;
@@ -141,23 +160,61 @@ public class Axel {
 
 
 
-    public boolean checkCollision(){
-        // fonction auxiliaire pour trier les blocks potentiel
+    public boolean checkCollision() {
         ArrayList<Block> blk = blockTrie();
 
-        // on va parcourir blk pour savoir si Axel est sur un bloc (on sait déjà qu'ils sont dans la zone de chute de Axel donc il ne reste plus qu'à savoir le quel est touché par axel c a d s'il est à la même hauteur que lui)
-
-        for (Block b : blk){
-            if (this.y == b.getY()) {
-                return true;
+        for (Block b : blk) {
+            // Vérifie si Axel est aligné horizontalement avec le bloc
+            if (x + GamePanel.getAxelWidth() > b.getX() && x < b.getX() + b.getWidth()) {
+                // Vérifie si Axel est juste au-dessus du bloc
+                if (y + GamePanel.getAxelHeight() >= b.getY() && y + GamePanel.getAxelHeight() <= b.getY() + dy) {
+                    // Positionner Axel juste au-dessus du bloc
+                    y = b.getY() - GamePanel.getAxelHeight();
+                    dy = 0; // Réinitialiser la vitesse verticale
+                    return true;
+                }
             }
-
         }
         return false;
     }
 
 
 
-    public void update() {}
+    public void update() {
+        computeMove(); // Calcule les déplacements
+
+
+
+        // Limiter la position pour rester dans les limites du terrain
+        if (x < 0) x = 0;
+        if (x > field.width - GamePanel.getAxelWidth()) x = field.width - GamePanel.getAxelWidth();
+//        if (y < 0) y = 0;
+//        if (y > field.height - GamePanel.getAxelHeight()) y = field.height - GamePanel.getAxelHeight();
+
+        // Réinitialiser les déplacements après chaque mise à jour
+
+        if (checkCollision() && falling){
+            // Mettre à jour les positions
+            setFalling(checkCollision());
+            y += 0;
+            x += 0;
+
+
+        }else {
+
+            x += dx;
+            y += dy;
+
+        }
+        calculScore();
+
+        dx = 0;
+        dy = 0;
+
+
+
+
+
+    }
 }
 //popo teste

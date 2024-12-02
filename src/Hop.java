@@ -13,6 +13,7 @@ public class Hop {
     private final Axel axel;
     private Timer timer;
     private GamePanel gamePanel;
+    private JLabel score;
 
     public Hop() {
         ArrayList<Block> block = new ArrayList<>();
@@ -23,6 +24,13 @@ public class Hop {
         this.gamePanel = new GamePanel(field, axel);
 
         this.frame = new JFrame("Hop!");
+
+        this.score = new JLabel("score = ");
+        score= new JLabel("Score: 0", SwingConstants.CENTER);
+        score.setFont(new Font("Arial", Font.BOLD, 18));
+        frame.add(score, BorderLayout.NORTH);
+
+
         frame.add(gamePanel);
         frame.pack();
         frame.setVisible(true);
@@ -31,6 +39,7 @@ public class Hop {
 
     public void round() {
         axel.update();
+        score.setText("score : " + axel.getScore());
         field.update();
         frame.repaint();
         over();
@@ -60,6 +69,7 @@ public class Hop {
         game.timer = new Timer(DELAY, (ActionEvent e) -> {
             game.round();
             if (game.over()) {
+                //System.out.println("mort");
                 game.timer.stop();
                 game.frame.remove(game.gamePanel);
             }
