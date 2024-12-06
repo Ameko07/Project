@@ -8,7 +8,7 @@ public class Axel {
     public static final double LATERAL_SPEED = 8;
 
     private int x, y;
-    private int dx , dy;
+    private int dx, dy;
 
     private boolean falling;
     private boolean jumping;
@@ -32,60 +32,82 @@ public class Axel {
     }
 
 
-    /**getter getX()
-     * @return x : int  **/
+    /**
+     * getter getX()
+     *
+     * @return x : int
+     **/
     public int getX() {
         return x;
     }
-    /**getter getY()
-     * @return y : int  **/
+
+    /**
+     * getter getY()
+     *
+     * @return y : int
+     **/
     public int getY() {
         return y;
     }
     // setting bolean attribut
-    /**setter setJumping
+
+    /**
+     * setter setJumping
+     *
      * @param jumping : boolean
-     * set Jumping**/
+     *                set Jumping
+     **/
     public void setJumping(boolean jumping) {
         this.jumping = jumping;
     }
 
-    /**setter setDiving()
+    /**
+     * setter setDiving()
+     *
      * @param diving : boolean
-     * modifie l'attribut diving**/
+     *               modifie l'attribut diving
+     **/
     public void setDiving(boolean diving) {
         this.diving = diving;
     }
 
-    /**setter setFalling
+    /**
+     * setter setFalling
+     *
      * @param falling : boolean
-     * modifie l'attribut falling**/
+     *                modifie l'attribut falling
+     **/
     public void setFalling(boolean falling) {
         this.falling = falling;
     }
 
-    /**setter setLeft
+    /**
+     * setter setLeft
+     *
      * @param left : boolean
-     * modifie l'attribut left**/
+     *             modifie l'attribut left
+     **/
     public void setLeft(boolean left) {
         this.left = left;
     }
 
-    /**setter setRight
-     * @param right
-     * modifie l'attribut right**/
+    /**
+     * setter setRight
+     *
+     * @param right modifie l'attribut right
+     **/
     public void setRight(boolean right) {
         this.right = right;
     }
 
 
-    public boolean getSurviving (){
-        return this.surviving ;
+    public boolean getSurviving() {
+        return this.surviving;
     }
 
-    public boolean isDead(){
+    public boolean isDead() {
 
-        return y >= field.getHeight() ;
+        return y >= field.getHeight();
     }
 
     // peut-être utiliser plutard
@@ -95,13 +117,12 @@ public class Axel {
         return score;
     }
 
-    public void calculScore(){
-        if (checkCollision()){
-            if (score <= field.getHeight()-y+10) {
-                score = field.getHeight()-(y + 10);
+    public void calculScore() {
+        if (checkCollision()) {
+            if (score <= field.getHeight() - y + 10) {
+                score = field.getHeight() - (y + 10);
             }
         }
-
 
 
     }
@@ -109,6 +130,7 @@ public class Axel {
     public void setDx(int dx) {
         this.dx = dx;
     }
+
     public void setDy(int dy) {
         this.dy = dy;
     }
@@ -116,48 +138,66 @@ public class Axel {
     public void setSurviving(boolean surviving) {
         this.surviving = surviving;
     }
-    /**setter computeMove
-     * modifie les attribut dx et dy**/
-    public void computeMove (){
+
+    /**
+     * setter computeMove
+     * modifie les attribut dx et dy
+     **/
+    public void computeMove() {
+        dx = 0;
         // si les attribut sont true alors il se déplace
-        if (jumping) {
-            dy = dy - (int)JUMP_SPEED;
-        }
-        if (right){
-            dx = dx + (int) LATERAL_SPEED;
-        }
-        if (left){
-            dx = dx - (int)LATERAL_SPEED;
-        }
-        if (diving) {
-            dy = dy + (int) DIVE_SPEED;
-        }
-        if (!jumping && !diving) {
+        if (left) {
+            dx = -((int) LATERAL_SPEED);
+        } else if (right) {
+            dx = (int) LATERAL_SPEED;
+        } else dx = 0;
+
+        if (jumping && checkCollision()) {
+            dy = - (int) JUMP_SPEED;
+            falling = true;
+            jumping = false;
+        } if (falling) {
             dy = dy + (int) GRAVITY;
+            if(checkCollision()) {
+                dy = 0;
+
+            }
+            if (dy < MAX_FALL_SPEED) {
+                dy = (int) MAX_FALL_SPEED;
+            }
+
+            if (diving) {
+                dy = dy + (int) DIVE_SPEED;
+            }
         }
-        if (falling) {
-            dy = dy - (int) MAX_FALL_SPEED;
+        if (checkCollision()) {
+            falling = false;
+            dy = 0;
+
         }
-    };
+    }
 
 
-    private ArrayList<Block> blockTrie(){
+    private ArrayList<Block> blockTrie() {
 
         ArrayList<Block> res = new ArrayList<>();
         ArrayList<Block> blockField = this.field.getEnsBlock();
-        for (Block b : blockField){
+        for (Block b : blockField) {
 
             // vérifier si un block se trouve sur sa trajectoire de chute
-            if (this.x >= b.getX() && this.x <b.getX()+b.getWidth()){
+            if (this.x >= b.getX() && this.x < b.getX() + b.getWidth()) {
                 res.add(b);
             }
         }
         return res;
     }
-    /**methode checkCollision
-     *@return boolean
-     * retourne true si axel est sur un block sinon false **/
 
+    /**
+     * methode checkCollision
+     *
+     * @return boolean
+     * retourne true si axel est sur un block sinon false
+     **/
 
 
     public boolean checkCollision() {
@@ -179,42 +219,17 @@ public class Axel {
     }
 
 
-
     public void update() {
         computeMove(); // Calcule les déplacements
-
-
-
-        // Limiter la position pour rester dans les limites du terrain
-        if (x < 0) x = 0;
-        if (x > field.width - GamePanel.getAxelWidth()) x = field.width - GamePanel.getAxelWidth();
-//        if (y < 0) y = 0;
-//        if (y > field.height - GamePanel.getAxelHeight()) y = field.height - GamePanel.getAxelHeight();
-
-        // Réinitialiser les déplacements après chaque mise à jour
-
-        if (checkCollision() && falling){
-            // Mettre à jour les positions
-            setFalling(checkCollision());
-            y += 0;
-            x += 0;
-
-
-        }else {
-
-            x += dx;
-            y += dy;
-
+        x = x + dx;
+        if (falling) {
+            y = y + dy;
+        } else {
+            falling = true;
         }
+
         calculScore();
-
-        dx = 0;
-        dy = 0;
-
-
-
-
 
     }
 }
-//popo teste
+
