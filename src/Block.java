@@ -4,13 +4,12 @@ public class Block {
     private final int x, y;
     private final int width;
 
-    public Block(int x, int y, int width) {
-        this.x = x;
+    //Constructeur pour ajuster largeur des blocs
+    public Block(int y, int fieldWidth, int maxBlockWidth) {
+        Random random = new Random();
         this.y = y;
-        if (width<20){
-            this.width = 50;
-        }else this.width = width;
-
+        this.width = random.nextInt(maxBlockWidth / 2) + (maxBlockWidth / 2); // Largeur entre maxBlockWidth/2 et maxBlockWidth
+        this.x = random.nextInt(fieldWidth - this.width); // Position aléatoire
     }
 
     public Block (int alt, int fieldWidth) { //fieldWith est la largeur du terrain
@@ -19,6 +18,7 @@ public class Block {
         this.width = randomBlock.nextInt(50) + 50; //génère un entier entre 50 et 100 (niveau 0)
         this.x = randomBlock.nextInt(fieldWidth - this.width); //génère un entier entre 0 et la plage MAX de x
     }
+
 
     /**getter getWidth()
      * @return this.width : int

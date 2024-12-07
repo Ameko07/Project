@@ -7,6 +7,7 @@ public class Hop {
     public static final int WIDTH = 400;
     public static final int HEIGHT = 600;
     public static final int DELAY = 40;
+    private static final int[] LEVELS = {1000, 1500, 2500, 3750, 5000, 7000};
 
     private final JFrame frame;
     private final Field field;
@@ -26,7 +27,7 @@ public class Hop {
         this.frame = new JFrame("Hop!");
 
         this.score = new JLabel("score = ");
-        score= new JLabel("Score: 0", SwingConstants.CENTER);
+        score= new JLabel("Score: 0 || Level : 1", SwingConstants.CENTER);
         score.setFont(new Font("Arial", Font.BOLD, 18));
         frame.add(score, BorderLayout.NORTH);
 
@@ -35,6 +36,14 @@ public class Hop {
         frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    private void levelUp() {
+        int score = axel.getScore();
+        int currentLevel = field.getLevel();
+        if (currentLevel <= LEVELS.length && score >= LEVELS[currentLevel - 1]) {
+            field.incrementeDifficulte();
+        }
     }
 
     public void round() {
@@ -46,7 +55,8 @@ public class Hop {
             field.update();
         }
         axel.update();
-        score.setText("score : " + axel.getScore());
+        levelUp();
+        score.setText("score : " + axel.getScore() + " | Level : " + field.getLevel());
         frame.repaint();
         over();
     }

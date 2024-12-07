@@ -7,10 +7,15 @@ public class Field {
     public static final int ALTITUDE_GAP = 80;
     public static final int START_ALTITUDE = 40;
     public static final int BLOCK_HEIGHT = 10; // Hauteur des blocs
+    public static final int INITIAL_BLOCK_WIDTH = 100;
+    public static final int INITIAL_SCROLL_SPEED = 2;
 
     public final int width, height;
     private int bottom, top; // bottom and top altitude
     private boolean scrolling;
+    private int scrollSpeed;
+    private int maxBlockWidth;
+    private int level;
 
     // ensemble des blocks aléatoire
     private ArrayList<Block> ensBlock ;
@@ -34,6 +39,9 @@ public class Field {
         this.bottom = 0;
         this.top = height;
         this.scrolling = false;
+        this.scrollSpeed = INITIAL_SCROLL_SPEED;
+        this.maxBlockWidth = INITIAL_BLOCK_WIDTH;
+        this.level = 1;
 
     }
 
@@ -60,7 +68,15 @@ public class Field {
         System.out.println("Generated block at altitude: " + newAltitude);
     }
 
+    public void incrementeDifficulte() {
+        level++;
+        scrollSpeed ++;
+        maxBlockWidth = Math.max(30, maxBlockWidth - 10); //réduire largeur des blocs (min 30 max 100)
+        System.out.println("Level up! current level:" + level );
+    }
 
+
+    // getter
     private int getHighestBlockAltitude() {
         if (ensBlock.isEmpty()) {
             return top; // si aucun bloc retourner top
@@ -68,8 +84,6 @@ public class Field {
         return ensBlock.get(ensBlock.size() - 1).getY();
     }
 
-
-    // getter
 
 
     public int getBottom() {
@@ -94,6 +108,14 @@ public class Field {
         return height;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public int getMaxBlockWidth() {
+        return maxBlockWidth;
+    }
+
     //setter
     public void setScrolling(boolean scrolling) {
         this.scrolling = scrolling;
@@ -101,7 +123,6 @@ public class Field {
 
 //Implantation du défilement
 public void update() {
-    int scrollSpeed = 2; // Vitesse constante du défilement
 
     // Déplacer les limites inférieure (bottom) et supérieure (top)
     //ici on fait - car le tableau commence en haut à gauche
