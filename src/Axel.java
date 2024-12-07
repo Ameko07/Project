@@ -110,6 +110,10 @@ public class Axel {
         return y >= field.getHeight();
     }
 
+    public boolean isJumping() {
+        return jumping;
+    }
+
     // peut-être utiliser plutard
 
 
