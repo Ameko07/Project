@@ -26,21 +26,25 @@ public class GamePanel extends JPanel implements KeyListener  {
 
     }
 
+    @Override
     public void paintComponent(Graphics g) {
-
         super.paintComponent(g);
-        ArrayList<Block> blocks = field.getEnsBlock();
-        for (int i = 0; i<blocks.size(); i++) {
-            Block b = blocks.get(i);
-            g.drawRect(b.getX(),b.getY(),b.getWidth(),10);
+
+        // Dessiner les blocs visibles
+        for (Block b : field.getEnsBlock()) {
+            if (b.getY() > field.getBottom() && b.getY() < field.getTop()) {
+                // Ajuster la position pour simuler le défilement
+                g.drawRect(b.getX(), b.getY() - field.getBottom(), b.getWidth(), Field.BLOCK_HEIGHT);
+            }
         }
 
-        g.fillOval(axel.getX(),axel.getY(),AXEL_WIDTH,AXEL_HEIGHT);
-
-
-
-
+        // Dessiner Axel (calibré avec le défilement)
+        g.fillOval(axel.getX(), axel.getY() - field.getBottom(), AXEL_WIDTH, AXEL_HEIGHT);
     }
+
+
+
+
 
 
     //methode of keyListener

@@ -14,12 +14,11 @@ public class Hop {
     private Timer timer;
     private GamePanel gamePanel;
     private JLabel score;
-    private boolean started = false; //le défilement du terrain commence
+    private boolean started = false; //le défilement du terrain commence quand c'est true
 
     public Hop() {
         ArrayList<Block> block = new ArrayList<>();
         this.field = new Field(block,WIDTH, HEIGHT);
-        //this.axel = new Axel(field, WIDTH/2, field.START_ALTITUDE);
         Block b = field.getEnsBlock().get(0);
         this.axel = new Axel(field, b.getX()+b.getWidth()/2, b.getY()-gamePanel.getAxelWidth());
         this.gamePanel = new GamePanel(field, axel);
@@ -40,7 +39,8 @@ public class Hop {
 
     public void round() {
         if (!started && axel.isJumping()) {
-            started = true;
+            started = true; //le défilement commence quand Axel saute
+            field.setScrolling(true);
         }
         if (started) {
             field.update();
