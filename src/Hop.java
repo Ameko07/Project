@@ -70,10 +70,10 @@ public class Hop {
 
     private void gameOver() {
         timer.stop();
-        String message = "Game Over! \n" + "Your score: " +
+        String message = "Game Over! \n" + "Votre score: " +
                 axel.getScore() +
-                "\n" + "Level Reached: " + field.getLevel() +
-                "\n" + "Play again?";
+                "\n" + "Niveau atteint " + field.getLevel() +
+                "\n" + "Jouer à nouveau?";
         int choix = JOptionPane.showConfirmDialog(frame, message, "GAME OVER!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
         if (choix == JOptionPane.YES_OPTION) {
             frame.dispose();
