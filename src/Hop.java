@@ -72,20 +72,19 @@ public class Hop {
         timer.stop();
         String message = "Game Over! \n" + "Your score: " +
                 axel.getScore() +
-                "\n" + "Level Reached: " + field.getLevel();
-        JOptionPane.showMessageDialog(frame, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
-        frame.dispose();
+                "\n" + "Level Reached: " + field.getLevel() +
+                "\n" + "Play again?";
+        int choix = JOptionPane.showConfirmDialog(frame, message, "GAME OVER!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        if (choix == JOptionPane.YES_OPTION) {
+            frame.dispose();
+            Hop.main(null);
+        } else {
+            frame.dispose();
+            System.exit(0);
+        }
+
     }
 
-
-//    public boolean finPartie(){
-//        if (over()) {
-//            timer.stop();
-//            frame.remove(gamePanel);
-//            return true;
-//        }
-//        return false;
-//    }
 
 
 
