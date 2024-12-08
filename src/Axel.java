@@ -107,7 +107,7 @@ public class Axel {
 
     public boolean isDead() {
 
-        return y >= field.getHeight();
+        return y >= field.getTop();
     }
 
     public boolean isJumping() {

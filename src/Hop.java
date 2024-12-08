@@ -68,6 +68,16 @@ public class Hop {
         return axel.isDead();
     }
 
+    private void gameOver() {
+        timer.stop();
+        String message = "Game Over! \n" + "Your score: " +
+                axel.getScore() +
+                "\n" + "Level Reached: " + field.getLevel();
+        JOptionPane.showMessageDialog(frame, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
+        frame.dispose();
+    }
+
+
 //    public boolean finPartie(){
 //        if (over()) {
 //            timer.stop();
@@ -86,8 +96,7 @@ public class Hop {
             game.round();
             if (game.over()) {
                 //System.out.println("mort");
-                game.timer.stop();
-                game.frame.remove(game.gamePanel);
+                game.gameOver();
             }
         });
         game.timer.start();
