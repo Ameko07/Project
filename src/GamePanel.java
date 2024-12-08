@@ -16,8 +16,7 @@ public class GamePanel extends JPanel implements KeyListener  {
     private final Field field;
     private Image background;
 
-    private Image catN;
-    private Image background;
+
     
 
 
@@ -31,7 +30,7 @@ public class GamePanel extends JPanel implements KeyListener  {
         addKeyListener(this);
         
         //catN = ImageIcon("C:/Users/lafat/Université/IPO/ProjetIPO/cat1.jpg").getImage();
-        background = new ImageIcon("src/cyperpunk.png").getImage();
+
        
 
         //charger image de background
@@ -61,7 +60,7 @@ public class GamePanel extends JPanel implements KeyListener  {
         }
 
         // Dessiner Axel (calibré avec le défilement)
-        g.drawImage(catN, axel.getX(), axel.getY() - field.getBottom(),50,50,this);
+        //g.drawImage(catN, axel.getX(), axel.getY() - field.getBottom(),50,50,this);
         
 
         //AXEL_WIDTH, AXEL_HEIGHT
