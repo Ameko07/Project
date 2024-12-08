@@ -86,15 +86,6 @@ public class Hop {
     }
 
 
-//    public boolean finPartie(){
-//        if (over()) {
-//            timer.stop();
-//            frame.remove(gamePanel);
-//            return true;
-//        }
-//        return false;
-//    }
-
 
 
     public static void main(String[] args) {

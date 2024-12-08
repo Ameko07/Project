@@ -58,6 +58,7 @@ public class GamePanel extends JPanel implements KeyListener  {
                 g.fillRect(b.getX(), b.getY() - field.getBottom(), b.getWidth(), Field.BLOCK_HEIGHT);
             }
         }
+        g.fillOval(axel.getX(), axel.getY() - field.getBottom(), AXEL_WIDTH, AXEL_HEIGHT);
 
         // Dessiner Axel (calibré avec le défilement)
         //g.drawImage(catN, axel.getX(), axel.getY() - field.getBottom(),50,50,this);

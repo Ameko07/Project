@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class Block {
-    private final int x, y;
+    private int x, y;
     private final int width;
 
     //Constructeur pour ajuster largeur des blocs
@@ -37,6 +37,12 @@ public class Block {
     public int getY() {
         return y;
     }
+
+    public void setX (int x) {
+        this.x = x;
+    }
+
+
 
 
 }
