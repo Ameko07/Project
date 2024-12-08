@@ -9,13 +9,19 @@ import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements KeyListener  {
     private static final int BLOCK_HEIGHT = 10;
-    private static final int AXEL_WIDTH = 10;
-    private static final int AXEL_HEIGHT = 10;
+    private static final int AXEL_WIDTH = 30;
+    private static final int AXEL_HEIGHT = 30;
 
     private final Axel axel;
     private final Field field;
     private Image background;
     private Image catND;
+    private Image catNG;
+    private Image catSD;
+    private Image catSG;
+    private Image catFD;
+    private Image catFG;
+
 
     
 
@@ -29,7 +35,13 @@ public class GamePanel extends JPanel implements KeyListener  {
         requestFocusInWindow();
         addKeyListener(this);
         
-        catND = new ImageIcon("src/CatND").getImage();
+        catND = new ImageIcon("src/CatND.png").getImage();
+        catNG = new ImageIcon("src/CatNG.png").getImage();
+        catSD = new ImageIcon("src/CatSautD.png").getImage();
+        catSG = new ImageIcon("src/CatSautG.png").getImage();
+        catFD = new ImageIcon("src/CatFallD.png").getImage();
+        catFG = new ImageIcon("src/CatFallG.png").getImage();
+
 
        
 
@@ -61,11 +73,27 @@ public class GamePanel extends JPanel implements KeyListener  {
         //g.fillOval(axel.getX(), axel.getY() - field.getBottom(), AXEL_WIDTH, AXEL_HEIGHT);
 
         // Dessiner Axel (calibré avec le défilement)
-        
-        g.drawImage(catND, axel.getX(), axel.getY() - field.getBottom(),AXEL_WIDTH,AXEL_HEIGHT,this);
-        
-        
-        
+        //chqt neutre gauche
+        if (this.axel.isLeft() &&!this.axel.isDiving() && !this.axel.isFalling() && !this.axel.isJumping() ){
+            g.drawImage(catNG, axel.getX(), axel.getY() - field.getBottom(),AXEL_WIDTH,AXEL_HEIGHT,this);
+
+        }//chat neutre droit
+        else if (this.axel.isRight() &&!this.axel.isDiving() && !this.axel.isFalling() && !this.axel.isJumping()) {
+            g.drawImage(catND, axel.getX(), axel.getY() - field.getBottom(),AXEL_WIDTH,AXEL_HEIGHT,this);
+        }//chat saut gauche
+        else if (this.axel.isLeft() && this.axel.isJumping()) {
+            g.drawImage(catSG, axel.getX(), axel.getY() - field.getBottom(),AXEL_WIDTH,AXEL_HEIGHT,this);
+        }//chat saut droit
+        else if (this.axel.isRight() && this.axel.isJumping()) {
+            g.drawImage(catSD, axel.getX(), axel.getY() - field.getBottom(),AXEL_WIDTH,AXEL_HEIGHT,this);
+        }//chat tombe vers la gauche
+        else if (this.axel.isLeft() && this.axel.isDiving()|| this.axel.isFalling()) {
+            g.drawImage(catFG, axel.getX(), axel.getY() - field.getBottom(),AXEL_WIDTH,AXEL_HEIGHT,this);
+        }//chat tombe vers la droite
+        else if (this.axel.isRight() && this.axel.isDiving()|| this.axel.isFalling()) {
+            g.drawImage(catFD, axel.getX(), axel.getY() - field.getBottom(),AXEL_WIDTH,AXEL_HEIGHT,this);
+        }
+
 
         //AXEL_WIDTH, AXEL_HEIGHT
     }

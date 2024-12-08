@@ -49,6 +49,22 @@ public class Axel {
     public int getY() {
         return y;
     }
+
+    public boolean isFalling() {
+        return falling;
+    }
+
+    public boolean isDiving() {
+        return diving;
+    }
+
+    public boolean isLeft() {
+        return left;
+    }
+
+    public boolean isRight() {
+        return right;
+    }
     // setting bolean attribut
 
     /**
@@ -60,6 +76,7 @@ public class Axel {
     public void setJumping(boolean jumping) {
         this.jumping = jumping;
     }
+
 
     /**
      * setter setDiving()
