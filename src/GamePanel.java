@@ -15,7 +15,7 @@ public class GamePanel extends JPanel implements KeyListener  {
     private final Axel axel;
     private final Field field;
     private Image background;
-
+    private Image catND;
 
     
 
@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements KeyListener  {
         requestFocusInWindow();
         addKeyListener(this);
         
-        //catN = ImageIcon("C:/Users/lafat/Université/IPO/ProjetIPO/cat1.jpg").getImage();
+        catND = new ImageIcon("src/CatND").getImage();
 
        
 
@@ -41,7 +41,7 @@ public class GamePanel extends JPanel implements KeyListener  {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(background,0,0,field.getWidth(), field.getHeight(),this);
+        
        Color Cbloc = new Color(168,44,31);
 
         //dessiner le background
@@ -58,10 +58,13 @@ public class GamePanel extends JPanel implements KeyListener  {
                 g.fillRect(b.getX(), b.getY() - field.getBottom(), b.getWidth(), Field.BLOCK_HEIGHT);
             }
         }
-        g.fillOval(axel.getX(), axel.getY() - field.getBottom(), AXEL_WIDTH, AXEL_HEIGHT);
+        //g.fillOval(axel.getX(), axel.getY() - field.getBottom(), AXEL_WIDTH, AXEL_HEIGHT);
 
         // Dessiner Axel (calibré avec le défilement)
-        //g.drawImage(catN, axel.getX(), axel.getY() - field.getBottom(),50,50,this);
+        
+        g.drawImage(catND, axel.getX(), axel.getY() - field.getBottom(),AXEL_WIDTH,AXEL_HEIGHT,this);
+        
+        
         
 
         //AXEL_WIDTH, AXEL_HEIGHT

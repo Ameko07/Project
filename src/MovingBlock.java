@@ -12,7 +12,7 @@ public class MovingBlock extends Block {
     public void update(int fieldWidth) {
         int newX = getX() + direction * speed;
         //si on atteint bord (droite ou gauche), on change de direction
-        if (newX < 0 || newX + getWidth() >= fieldWidth) {
+        if (newX <= 0 || newX + getWidth() >= fieldWidth) {
             direction = direction * (-1);
         } else {
             setX(newX);
