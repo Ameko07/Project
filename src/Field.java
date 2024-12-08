@@ -65,7 +65,7 @@ public class Field {
         // Générer un nouveau bloc par dessus le bloc le plus haut
         int newAltitude = highestAltitude - ALTITUDE_GAP;
         ensBlock.add(new Block(newAltitude, width));
-        System.out.println("Generated block at altitude: " + newAltitude);
+        
     }
 
     public void incrementeDifficulte() {
@@ -121,23 +121,23 @@ public class Field {
         this.scrolling = scrolling;
     }
 
-//Implantation du défilement
-public void update() {
+    //Implantation du défilement
+    public void update() {
 
-    // Déplacer les limites inférieure (bottom) et supérieure (top)
-    //ici on fait - car le tableau commence en haut à gauche
-    bottom -= scrollSpeed;
-    top -= scrollSpeed;
+        // Déplacer les limites inférieure (bottom) et supérieure (top)
+        //ici on fait - car le tableau commence en haut à gauche
+        bottom -= scrollSpeed;
+        top -= scrollSpeed;
 
-    // Supprimer les blocs en dessous de bottom lors du défilement
-    ensBlock.removeIf(b -> b.getY() > top);
-    System.out.println("Blocks after removal: " + ensBlock.size());
+        // Supprimer les blocs en dessous de bottom lors du défilement
+        ensBlock.removeIf(b -> b.getY() > top);
+        System.out.println("Blocks after removal: " + ensBlock.size());
 
-    // Ajouter de nouveaux blocs au-dessus tant qu'Axel est en vie
-    while (getHighestBlockAltitude() > top - height) {
-        generateNewBlocks();
+        // Ajouter de nouveaux blocs au-dessus tant qu'Axel est en vie
+        while (getHighestBlockAltitude() > top - height) {
+            generateNewBlocks();
+        }
     }
-}
 
 
 }
