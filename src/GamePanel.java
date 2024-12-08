@@ -14,6 +14,7 @@ public class GamePanel extends JPanel implements KeyListener  {
 
     private final Axel axel;
     private final Field field;
+    private Image background;
 
     public GamePanel(Field field, Axel axel) {
         this.field = field;
@@ -24,11 +25,19 @@ public class GamePanel extends JPanel implements KeyListener  {
         requestFocusInWindow();
         addKeyListener(this);
 
+        //charger image de background
+        background = new ImageIcon("src/cyperpunk.png").getImage();
+
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        //dessiner le background
+        if (background != null) {
+            g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+        }
 
         // Dessiner les blocs visibles
         for (Block b : field.getEnsBlock()) {
