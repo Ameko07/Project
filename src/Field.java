@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -16,6 +18,8 @@ public class Field {
     private int scrollSpeed;
     private int maxBlockWidth;
     private int level;
+    private ArrayList<Bonus> bonus;
+    private Image bonusImage;
 
     // ensemble des blocks aléatoire
     private ArrayList<Block> ensBlock ;
@@ -42,6 +46,8 @@ public class Field {
         this.scrollSpeed = INITIAL_SCROLL_SPEED;
         this.maxBlockWidth = INITIAL_BLOCK_WIDTH;
         this.level = 1;
+        this.bonus = new ArrayList<>();
+        this.bonusImage = new ImageIcon("src/Strawberry.png").getImage();
 
     }
 
@@ -65,15 +71,50 @@ public class Field {
         // Générer un nouveau bloc par dessus le bloc le plus haut
         int newAltitude = highestAltitude - ALTITUDE_GAP;
 
+        Block newBlock;
         //Génère aléatoirement bloc normal OU block qui bouge
         if (level >= 3 && Math.random() < 0.3) {
-            ensBlock.add(new MovingBlock(newAltitude, width, maxBlockWidth));
+            newBlock = new MovingBlock(newAltitude, width, maxBlockWidth);
         }
         else {
-            ensBlock.add(new Block(newAltitude, width, maxBlockWidth));
+            newBlock =new Block(newAltitude, width, maxBlockWidth);
         }
+        ensBlock.add(newBlock);
+
+        //générer un bonus sur les blocs (aléatoire)
+        if(Math.random() < 0.1) {
+            int bonusX = newBlock.getX() + (newBlock.getWidth() / 2) - 10; //génère bonus au milieu du bloc
+            int bonusY = newBlock.getY() - 15; // génère bonus au-dessus du bloc
+            bonus.add(new Bonus(bonusX, bonusY, bonusImage));
+        }
+
+
         
     }
+
+    //genere des bonus aléatoirement
+    private void generateBonus() {
+        Random rand = new Random();
+        for (Block b : ensBlock) {
+            if (rand.nextDouble() < 0.01) {
+                int bonusX = b.getX() + rand.nextInt(b.getWidth() - 15);
+                int bonusY = b.getY() - 15;
+                bonus.add(new Bonus(bonusX, bonusY, bonusImage));
+            }
+        }
+    }
+
+    //supprime le bonus lorsque axel le collecte
+    public void verifierCollecteBonus(Axel axel) {
+        bonus.removeIf(b -> {
+            if (b.bonusCollecte(axel)) {
+                axel.incrementScore(100); // ajoute 100 pts au score
+                return true;
+            }
+            return false;
+        });
+    }
+
 
     public void incrementeDifficulte() {
         level++;
@@ -123,6 +164,10 @@ public class Field {
         return maxBlockWidth;
     }
 
+    public ArrayList<Bonus> getBonus() {
+        return bonus;
+    }
+
     //setter
     public void setScrolling(boolean scrolling) {
         this.scrolling = scrolling;
@@ -152,6 +197,11 @@ public class Field {
                 ((MovingBlock) b).update(width);
             }
         }
+
+        //Supprime les bonus hors de l'écran
+        bonus.removeIf(b -> b.getY() > top);
+        generateBonus();
+
     }
 
 

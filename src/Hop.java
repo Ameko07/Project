@@ -58,6 +58,8 @@ public class Hop {
         levelUp();
         score.setText("score : " + axel.getScore() + " | Level : " + field.getLevel());
         frame.repaint();
+        axel.bonusCollecte(field.getBonus());
+        field.verifierCollecteBonus(axel);
         over();
     }
 

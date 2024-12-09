@@ -21,6 +21,7 @@ public class GamePanel extends JPanel implements KeyListener  {
     private Image catSG;
     private Image catFD;
     private Image catFG;
+    private Image blockImage;
 
 
 
@@ -35,6 +36,7 @@ public class GamePanel extends JPanel implements KeyListener  {
         requestFocusInWindow();
         addKeyListener(this);
 
+        //Charger Axel
         catND = new ImageIcon("src/CatND.png").getImage();
         catNG = new ImageIcon("src/CatNG.png").getImage();
         catSD = new ImageIcon("src/CatSautD.png").getImage();
@@ -42,8 +44,8 @@ public class GamePanel extends JPanel implements KeyListener  {
         catFD = new ImageIcon("src/CatFallD.png").getImage();
         catFG = new ImageIcon("src/CatFallG.png").getImage();
 
-
-
+        //Charger image blocs
+        blockImage = new ImageIcon ("src/Tiles_small.png").getImage();
 
         //charger image de background
         background = new ImageIcon("src/cyperpunk.png").getImage();
@@ -65,9 +67,13 @@ public class GamePanel extends JPanel implements KeyListener  {
         for (Block b : field.getEnsBlock()) {
             if (b.getY() > field.getBottom() && b.getY() < field.getTop()) {
                 // Ajuster la position pour simuler le défilement
+                int blockX = b.getX();
+                int blockY = b.getY() - field.getBottom();
+                int blockWidth = b.getWidth();
+                int blockHeight = Field.BLOCK_HEIGHT;
 
-                g.setColor(Cbloc);
-                g.fillRect(b.getX(), b.getY() - field.getBottom(), b.getWidth(), Field.BLOCK_HEIGHT);
+                g.drawImage(blockImage, blockX, blockY, blockWidth, blockHeight, this);
+
             }
         }
         //g.fillOval(axel.getX(), axel.getY() - field.getBottom(), AXEL_WIDTH, AXEL_HEIGHT);
@@ -105,6 +111,12 @@ public class GamePanel extends JPanel implements KeyListener  {
         }
 
         g.drawImage(axelImage, axel.getX() - 15, axel.getY() - field.getBottom(), AXEL_WIDTH, AXEL_HEIGHT, this);
+
+        //dessine les Bonus
+        for (Bonus b : field.getBonus()) {
+            b.drawBonus(g, field.getBottom());
+        }
+
     }
 
 

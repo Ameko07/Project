@@ -148,6 +148,10 @@ public class Axel {
 
     }
 
+    public void incrementScore(int points) {
+        score += points;
+    }
+
     public void setDx(int dx) {
         this.dx = dx;
     }
@@ -237,6 +241,17 @@ public class Axel {
             }
         }
         return false;
+    }
+
+    //vérifie si un bonus est ramassé
+    public void bonusCollecte(ArrayList<Bonus> bonuses) {
+        bonuses.removeIf(bonus -> {
+            if (bonus.bonusCollecte(this)) {
+                score += 10; // Ajouter 10 points au score
+                return true; // Retirer le bonus
+            }
+            return false;
+        });
     }
 
 
