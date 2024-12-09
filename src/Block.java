@@ -42,7 +42,6 @@ public class Block {
         this.x = x;
     }
 
-
-
-
 }
+
+

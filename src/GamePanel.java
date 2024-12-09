@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements KeyListener  {
     private Image catFG;
 
 
-    
+
 
 
     public GamePanel(Field field, Axel axel) {
@@ -34,16 +34,16 @@ public class GamePanel extends JPanel implements KeyListener  {
         setFocusable(true);
         requestFocusInWindow();
         addKeyListener(this);
-        
+
         catND = new ImageIcon("src/CatND.png").getImage();
         catNG = new ImageIcon("src/CatNG.png").getImage();
         catSD = new ImageIcon("src/CatSautD.png").getImage();
-        catSG = new ImageIcon("src/CatSautG.png").getImage();
+        catSG = new ImageIcon("src/catSautG.png").getImage();
         catFD = new ImageIcon("src/CatFallD.png").getImage();
         catFG = new ImageIcon("src/CatFallG.png").getImage();
 
 
-       
+
 
         //charger image de background
         background = new ImageIcon("src/cyperpunk.png").getImage();
@@ -53,8 +53,8 @@ public class GamePanel extends JPanel implements KeyListener  {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
-       Color Cbloc = new Color(168,44,31);
+
+        Color Cbloc = new Color(168,44,31);
 
         //dessiner le background
         if (background != null) {
@@ -65,37 +65,46 @@ public class GamePanel extends JPanel implements KeyListener  {
         for (Block b : field.getEnsBlock()) {
             if (b.getY() > field.getBottom() && b.getY() < field.getTop()) {
                 // Ajuster la position pour simuler le défilement
-                
+
                 g.setColor(Cbloc);
                 g.fillRect(b.getX(), b.getY() - field.getBottom(), b.getWidth(), Field.BLOCK_HEIGHT);
             }
         }
         //g.fillOval(axel.getX(), axel.getY() - field.getBottom(), AXEL_WIDTH, AXEL_HEIGHT);
 
-        // Dessiner Axel (calibré avec le défilement)
-        //chqt neutre gauche
-        if (this.axel.isLeft() &&!this.axel.isDiving() && !this.axel.isFalling() && !this.axel.isJumping() ){
-            g.drawImage(catNG, axel.getX(), axel.getY() - field.getBottom(),AXEL_WIDTH,AXEL_HEIGHT,this);
+        Image axelImage = catND;  // Image par défaut (neutre droite)
 
-        }//chat neutre droit
-        else if (this.axel.isRight() &&!this.axel.isDiving() && !this.axel.isFalling() && !this.axel.isJumping()) {
-            g.drawImage(catND, axel.getX(), axel.getY() - field.getBottom(),AXEL_WIDTH,AXEL_HEIGHT,this);
-        }//chat saut gauche
-        else if (this.axel.isLeft() && this.axel.isJumping()) {
-            g.drawImage(catSG, axel.getX(), axel.getY() - field.getBottom(),AXEL_WIDTH,AXEL_HEIGHT,this);
-        }//chat saut droit
-        else if (this.axel.isRight() && this.axel.isJumping()) {
-            g.drawImage(catSD, axel.getX(), axel.getY() - field.getBottom(),AXEL_WIDTH,AXEL_HEIGHT,this);
-        }//chat tombe vers la gauche
-        else if (this.axel.isLeft() && this.axel.isDiving()|| this.axel.isFalling()) {
-            g.drawImage(catFG, axel.getX(), axel.getY() - field.getBottom(),AXEL_WIDTH,AXEL_HEIGHT,this);
-        }//chat tombe vers la droite
-        else if (this.axel.isRight() && this.axel.isDiving()|| this.axel.isFalling()) {
-            g.drawImage(catFD, axel.getX(), axel.getY() - field.getBottom(),AXEL_WIDTH,AXEL_HEIGHT,this);
+        // Si Axel est en train de sauter
+        if (this.axel.isJumping()) {
+            if (this.axel.isLeft()) {
+                axelImage = catSG;  // Saut gauche
+            }if (this.axel.isRight()) {
+                axelImage = catSD;  // Saut droite
+            } else if (!this.axel.isLeft() && !this.axel.isRight()) {
+                axelImage = catSG;
+            }
         }
 
+        else if (this.axel.isDiving() || this.axel.isFalling()) {
+            if (this.axel.isLeft()) {
+                axelImage = catFG;  // Chute gauche
+            } else if (this.axel.isRight()) {
+                axelImage = catFD;  // Chute droite
+            } else if (this.axel.checkCollision()) {
+                axelImage = catND;
+            }
+            else {
+                axelImage = catFG;
+            }
+        }
+        if (this.axel.isLeft()) {
+            axelImage = catNG;  // Neutre gauche
+        }
+        else if (this.axel.isRight()) {
+            axelImage = catND;  // Neutre droite
+        }
 
-        //AXEL_WIDTH, AXEL_HEIGHT
+        g.drawImage(axelImage, axel.getX() - 15, axel.getY() - field.getBottom(), AXEL_WIDTH, AXEL_HEIGHT, this);
     }
 
 
@@ -104,11 +113,10 @@ public class GamePanel extends JPanel implements KeyListener  {
 
 
     //methode of keyListener
-
+    @Override
     /**methode keyPresed
      * @param e : KeyEvent
      * change l'etat d'action d'axel si une touche directionnel est appyer**/
-    @Override
     public void keyPressed(KeyEvent e) {
         // récupération du code enum de la touche
         int keyCode = e.getKeyCode();

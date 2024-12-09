@@ -66,7 +66,7 @@ public class Field {
         int newAltitude = highestAltitude - ALTITUDE_GAP;
 
         //Génère aléatoirement bloc normal OU block qui bouge
-        if (level >= 1 && Math.random() < 0.3) {
+        if (level >= 3 && Math.random() < 0.3) {
             ensBlock.add(new MovingBlock(newAltitude, width, maxBlockWidth));
         }
         else {
@@ -137,12 +137,20 @@ public class Field {
         top -= scrollSpeed;
 
 
+
+
         // Supprimer les blocs en dessous de bottom lors du défilement
         ensBlock.removeIf(b -> b.getY() > top);
 
         // Ajouter de nouveaux blocs au-dessus tant qu'Axel est en vie
         while (getHighestBlockAltitude() > top - height) {
             generateNewBlocks();
+        }
+        //Implémente blocs qui bougent
+        for (Block b : ensBlock) { //parcourt blocs de ensBlock
+            if (b instanceof MovingBlock) { //si un bloc = instance de movingblock, on update le block
+                ((MovingBlock) b).update(width);
+            }
         }
     }
 
