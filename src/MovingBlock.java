@@ -8,6 +8,7 @@ public class MovingBlock extends Block {
         this.speed = 2; //vitesse de base
     }
 
+
     //met à jour position horizontale bloc
     public void update(int fieldWidth) {
         int newX = getX() + direction * speed;
