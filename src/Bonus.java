@@ -6,6 +6,7 @@ public class Bonus {
     private static int height = 15; //hauteur bonus
     private static Image bonusImage;
 
+
     public Bonus(int x, int y, Image img) {
         this.x = x;
         this.y = y;

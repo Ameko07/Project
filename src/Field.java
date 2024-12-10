@@ -82,11 +82,21 @@ public class Field {
         ensBlock.add(newBlock);
 
         //générer un bonus sur les blocs (aléatoire)
-        if(Math.random() < 0.1) {
+        // choisir aléatoirement les block
+        /**Random rand = new Random();
+        if (rand.nextInt(2)==1){
             int bonusX = newBlock.getX() + (newBlock.getWidth() / 2) - 10; //génère bonus au milieu du bloc
             int bonusY = newBlock.getY() - 15; // génère bonus au-dessus du bloc
             bonus.add(new Bonus(bonusX, bonusY, bonusImage));
-        }
+        }else {
+
+        }**/
+
+        /**f(Math.random() < 0.1) {
+            int bonusX = newBlock.getX() + (newBlock.getWidth() / 2) - 10; //génère bonus au milieu du bloc
+            int bonusY = newBlock.getY() - 15; // génère bonus au-dessus du bloc
+            bonus.add(new Bonus(bonusX, bonusY, bonusImage));
+        }**/
 
 
         
@@ -96,11 +106,13 @@ public class Field {
     private void generateBonus() {
         Random rand = new Random();
         for (Block b : ensBlock) {
-            if (rand.nextDouble() < 0.01) {
-                int bonusX = b.getX() + rand.nextInt(b.getWidth() - 15);
-                int bonusY = b.getY() - 15;
-                bonus.add(new Bonus(bonusX, bonusY, bonusImage));
-            }
+            if (b.getBonus()== 0) {
+                if (rand.nextInt(2) == 1) {
+                    int bonusX = b.getX() + rand.nextInt(b.getWidth() - 15);
+                    int bonusY = b.getY() - 15;
+                    bonus.add(new Bonus(bonusX, bonusY, bonusImage));
+                }
+            }b.setBonus();
         }
     }
 
