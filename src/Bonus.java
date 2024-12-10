@@ -30,6 +30,10 @@ public class Bonus {
         return height;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
     //dessin de l'image du bonus
     public void drawBonus(Graphics g, int decalageY) {
         //decalageY sert à calculer le décalage de la position Y lors du défilement
