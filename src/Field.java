@@ -89,7 +89,7 @@ public class Field {
         }
 
 
-
+        
     }
 
     //genere des bonus aléatoirement

@@ -39,4 +39,4 @@ public class Bonus {
     public boolean bonusCollecte(Axel a) {
         return a.getX() < x + width && a.getX() + GamePanel.getAxelWidth() > x &&
                 a.getY() < y + height && a.getY() + GamePanel.getAxelHeight() > y;    }
-}//teste
+}
