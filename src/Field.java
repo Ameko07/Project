@@ -106,14 +106,14 @@ public class Field {
     private void generateBonus() {
         Random rand = new Random();
         for (Block b : ensBlock) {
-            if (b instanceof MovingBlock) { //si un bloc = instance de movingblock, on update le block
+            if (b instanceof MovingBlock) { //si un bloc = instance de movingblock,on choisi MovingBonus
                 if (b.getBonus()== 0){
 
                     if (rand.nextInt(2) == 1) {
                         int bonusX = b.getX() + rand.nextInt(b.getWidth() - 15);
                         int bonusY = b.getY() - 15;
                         bonus.add(new MovingBonus(bonusX, bonusY, bonusImage,((MovingBlock) b).getDirection()/50, ((MovingBlock) b).getSpeed()/50));
-                        b.setBonus();
+                        b.setBonus();// on incrémente à 1 pour évité les bonus multiple
                     }
                 }
             }
@@ -125,6 +125,7 @@ public class Field {
                 }
             }b.setBonus();
         }
+        // on update les bonus pour savoir les quels sont censé bouger avec le block
         for (Bonus bns : bonus){
             if (bns instanceof MovingBonus){
                 ((MovingBonus) bns).update(width);
