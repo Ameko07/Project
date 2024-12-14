@@ -36,6 +36,9 @@ public class Hop {
         frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+        frame.setVisible(true);
     }
 
     private void levelUp() {
@@ -45,6 +48,9 @@ public class Hop {
             field.incrementeDifficulte();
         }
     }
+
+
+
 
     public void round() {
         if (!started && axel.isJumping()) {

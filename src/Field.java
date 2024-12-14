@@ -107,8 +107,7 @@ public class Field {
         Random rand = new Random();
         for (Block b : ensBlock) {
             if (b instanceof MovingBlock) { //si un bloc = instance de movingblock, on update le block
-                if (b.getBonus()== 0){
-
+                if (b.getBonus()== 0 && rand.nextDouble() < 0.25){
                     if (rand.nextInt(2) == 1) {
                         int bonusX = b.getX() + rand.nextInt(b.getWidth() - 15);
                         int bonusY = b.getY() - 15;
@@ -117,7 +116,7 @@ public class Field {
                     }
                 }
             }
-            if (b.getBonus()== 0) {
+            if (b.getBonus()== 0 && rand.nextDouble() < 0.5) {
                 if (rand.nextInt(2) == 1) {
                     int bonusX = b.getX() + rand.nextInt(b.getWidth() - 15);
                     int bonusY = b.getY() - 15;

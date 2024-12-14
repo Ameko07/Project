@@ -78,18 +78,25 @@ public class GamePanel extends JPanel implements KeyListener  {
         }
         //g.fillOval(axel.getX(), axel.getY() - field.getBottom(), AXEL_WIDTH, AXEL_HEIGHT);
 
-        Image axelImage = catND;  // Image par défaut (neutre droite)
+        Image axelImage = catSD;  // Image par défaut (neutre droite)
 
         // Si Axel est en train de sauter
         if (this.axel.isJumping()) {
             if (this.axel.isLeft()) {
                 axelImage = catSG;  // Saut gauche
-            }if (this.axel.isRight()) {
-                axelImage = catSD;  // Saut droite
-            } else if (!this.axel.isLeft() && !this.axel.isRight()) {
-                axelImage = catSG;
             }
-        }
+            if (this.axel.isRight()) {
+                axelImage = catSD;
+            }
+            else {
+                axelImage = catSD;
+            }
+            }
+
+
+
+
+
 
         else if (this.axel.isDiving() || this.axel.isFalling()) {
             if (this.axel.isLeft()) {
@@ -106,7 +113,7 @@ public class GamePanel extends JPanel implements KeyListener  {
         if (this.axel.isLeft()) {
             axelImage = catNG;  // Neutre gauche
         }
-        else if (this.axel.isRight()) {
+        if (this.axel.isRight()) {
             axelImage = catND;  // Neutre droite
         }
 
@@ -136,7 +143,7 @@ public class GamePanel extends JPanel implements KeyListener  {
         // boolean if and else are also good
         switch (keyCode){
 
-            case KeyEvent.VK_UP: axel.setJumping(true);System.out.println("saute");break;
+            case KeyEvent.VK_UP: axel.setJumping(true);break;
             case KeyEvent.VK_DOWN: axel.setDiving(true);break;
             case KeyEvent.VK_LEFT: axel.setLeft(true);break;
             case KeyEvent.VK_RIGHT: axel.setRight(true);break;
