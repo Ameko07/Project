@@ -27,6 +27,7 @@ public class GamePanel extends JPanel implements KeyListener  {
 
 
 
+
     public GamePanel(Field field, Axel axel) {
         this.field = field;
         this.axel = axel;
@@ -91,7 +92,7 @@ public class GamePanel extends JPanel implements KeyListener  {
             else {
                 axelImage = catSD;
             }
-            }
+        }
 
 
 

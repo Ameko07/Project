@@ -44,9 +44,10 @@ public class Hop {
         frame.setVisible(true);
 
         //Ajout de la musique et autres sons
+
         backgroundMusic = new Sound ("src/ValorantOST.WAV");
         backgroundMusic.loop();
-        jumpSound = new Sound("");
+        jumpSound = new Sound("src/coinSound.WAV");
         bonusSound = new Sound("src/coinSound.WAV");
     }
 

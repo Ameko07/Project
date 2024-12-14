@@ -4,6 +4,7 @@ import java.io.IOException;
 
 
 public class Sound {
+
     private Clip clip;
 
     public Sound(String filePath) {

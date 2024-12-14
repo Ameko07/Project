@@ -7,9 +7,11 @@ public class Block {
 
     //Constructeur pour ajuster largeur des blocs
     public Block(int y, int fieldWidth, int maxBlockWidth) {
+
+        // randomisation
         Random random = new Random();
         this.y = y;
-        this.width = random.nextInt(maxBlockWidth / 2) + (maxBlockWidth / 2); // Largeur entre maxBlockWidth/2 et maxBlockWidth
+        this.width = random.nextInt(maxBlockWidth / 2) + (maxBlockWidth / 2); // Largeur aléatoire entre maxBlockWidth/2 et maxBlockWidth
         this.x = random.nextInt(fieldWidth - this.width);// Position aléatoire
         this.bonus = 0;
     }
@@ -35,20 +37,30 @@ public class Block {
     public int getX() {
         return x;
     }
+
     /**getter getY()
      * @return y : int  **/
     public int getY() {
         return y;
     }
 
+    /**getter getBonus()
+     * @return bonus**/
     public int getBonus() {
         return bonus;
     }
 
+    // setter
+    /***setter setBonus()
+     * modifie l'attribut bonus*/
     public void setBonus() {
         this.bonus++;
     }
 
+    /**
+     *setter setX()
+     * @param x : int
+     * modifie l'attribut x**/
     public void setX (int x) {
         this.x = x;
     }

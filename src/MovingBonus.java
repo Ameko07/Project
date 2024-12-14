@@ -3,6 +3,8 @@ import java.awt.*;
 public class MovingBonus extends Bonus{
     private int direction;
     private int speed;
+
+    //constructor
     public MovingBonus(int x, int y, Image img, int direction,int speed ){
         super(x,y,img);
         this.direction = 1;
@@ -24,6 +26,7 @@ public class MovingBonus extends Bonus{
 
 
     @Override
+
     public int getX() {
         return super.getX();
     }
