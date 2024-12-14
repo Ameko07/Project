@@ -73,7 +73,7 @@ public class Field {
 
         Block newBlock;
         //Génère aléatoirement bloc normal OU block qui bouge
-        if (level >= 3 && Math.random() < 0.3) {
+        if (level >= 2 && Math.random() < 0.3) {
             newBlock = new MovingBlock(newAltitude, width, maxBlockWidth);
         }
         else {
@@ -136,6 +136,7 @@ public class Field {
         bonus.removeIf(b -> {
             if (b.bonusCollecte(axel)) {
                 axel.incrementScore(100); // ajoute 100 pts au score
+                Sound.playOnce("src/coinSound.WAV"); //joue le son
                 return true;
             }
             return false;
