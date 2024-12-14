@@ -16,6 +16,9 @@ public class Hop {
     private GamePanel gamePanel;
     private JLabel score;
     private boolean started = false; //le défilement du terrain commence quand c'est true
+    private Sound backgroundMusic;
+    private Sound jumpSound;
+    private Sound bonusSound;
 
     public Hop() {
         ArrayList<Block> block = new ArrayList<>();
@@ -36,6 +39,15 @@ public class Hop {
         frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+        frame.setVisible(true);
+
+        //Ajout de la musique et autres sons
+        backgroundMusic = new Sound ("src/ValorantOST.WAV");
+        backgroundMusic.loop();
+        jumpSound = new Sound("");
+        bonusSound = new Sound("src/coinSound.WAV");
     }
 
     private void levelUp() {
@@ -46,6 +58,9 @@ public class Hop {
         }
     }
 
+
+
+
     public void round() {
         if (!started && axel.isJumping()) {
             started = true; //le défilement commence quand Axel saute
@@ -55,6 +70,11 @@ public class Hop {
             field.update();
         }
         axel.update();
+        if (axel.isDead()) {
+            if (backgroundMusic.isPlaying()) {
+                backgroundMusic.stop();  // Arrêter la musique
+            }
+        }
         levelUp();
         score.setText("score : " + axel.getScore() + " | Level : " + field.getLevel());
         frame.repaint();
@@ -84,6 +104,7 @@ public class Hop {
             frame.dispose();
             System.exit(0);
         }
+
 
     }
 
