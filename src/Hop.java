@@ -51,7 +51,7 @@ public class Hop {
         frame.setVisible(true);
 
         //Ajout de la musique et autres sons
-        backgroundMusic = new Sound ("src/ValorantOST.WAV");
+        backgroundMusic = new Sound ("src/Rest_Area.WAV");
         backgroundMusic.loop();
         deathSound = new Sound("src/catmeowing.WAV");
         bonusSound = new Sound("src/bonus.wav");

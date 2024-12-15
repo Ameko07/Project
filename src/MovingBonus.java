@@ -3,20 +3,21 @@ import java.awt.*;
 public class MovingBonus extends Bonus{
     private int direction;
     private int speed;
+    private Block b;
 
     //constructor
-    public MovingBonus(int x, int y, Image img, int direction,int speed ){
+    public MovingBonus(int x, int y, Image img, int direction,int speed ,Block b){
         super(x,y,img);
-        this.direction = 1;
-        this.speed = 2;
-
+        this.direction = direction;
+        this.speed = speed;
+        this.b = b;
 
     }
 
     public void update(int fieldWidth) {
-        int newX = getX() + direction * speed;
+        int newX = b.getX() + direction * speed;
         //si on atteint bord (droite ou gauche), on change de direction
-        if (newX <= 0 || newX + getWidth() >= fieldWidth) {
+        if (newX <= 0 || newX + b.getWidth() >= fieldWidth) {
             direction = direction * (-1);
         } else {
             setX(newX);
