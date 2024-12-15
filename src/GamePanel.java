@@ -46,10 +46,10 @@ public class GamePanel extends JPanel implements KeyListener  {
         catFG = new ImageIcon("src/CatFallG.png").getImage();
 
         //Charger image blocs
-        blockImage = new ImageIcon ("src/Tiles_small.png").getImage();
+        blockImage = new ImageIcon ("src/grassPlatform.png").getImage();
 
         //charger image de background
-        background = new ImageIcon("src/cyperpunk.png").getImage();
+        background = new ImageIcon("src/backgroundPixel(1).jpg").getImage();
 
     }
 

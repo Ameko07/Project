@@ -111,20 +111,36 @@ public class Hop {
 
     private void gameOver() {
         timer.stop();
-        String message = "Game Over! \n" + "Votre score: " +
-                axel.getScore() +
-                "\n" + "Niveau atteint " + field.getLevel() +
-                "\n" + "Jouer à nouveau?";
-        int choix = JOptionPane.showConfirmDialog(frame, message, "GAME OVER!", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-        if (choix == JOptionPane.YES_OPTION) {
-            frame.dispose();
-            Hop.main(null);
-        } else {
-            frame.dispose();
-            System.exit(0);
+
+        //Options de fin de partie :
+        String [] options = {"Rejouer", "Menu", "Quitter"};
+        int choix = JOptionPane.showOptionDialog(
+                frame,
+                "Game Over ! \n Votre score : " + axel.getScore() +
+                        "\n Niveau atteint : " + field.getLevel(), "GAME OVER!",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]
+        );
+
+        // Gestion des choix
+        switch (choix) {
+            case 0 -> {  // Rejouer
+                frame.dispose();
+                new Hop().startGame();
+            }
+            case 1 -> {  // Retour au menu principal
+                frame.dispose();
+                new MainMenu(new Hop());
+            }
+            case 2 -> {  // Quitter le jeu
+                frame.dispose();
+                System.exit(0);
+            }
+            default -> System.exit(0);  // quitter le jeu (option par défaut)
         }
-
-
     }
 
 
