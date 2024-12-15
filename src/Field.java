@@ -25,14 +25,6 @@ public class Field {
     private ArrayList<Block> ensBlock ;
 
 
-    public Field(int width, int height){
-        this.width = width;
-        this.height = height;
-        this.ensBlock = new ArrayList<>();
-
-
-    }
-
     public Field(ArrayList<Block> EnsembleBlock, int width, int height) {
         this.width = width;
         this.height = height;
@@ -51,6 +43,7 @@ public class Field {
 
     }
 
+    //génère des blocs
     public void generateBlocks() {
         int altitude = height - START_ALTITUDE;
         while (altitude > 0) {
@@ -81,25 +74,6 @@ public class Field {
         }
         ensBlock.add(newBlock);
 
-        //générer un bonus sur les blocs (aléatoire)
-        // choisir aléatoirement les block
-        /**Random rand = new Random();
-        if (rand.nextInt(2)==1){
-            int bonusX = newBlock.getX() + (newBlock.getWidth() / 2) - 10; //génère bonus au milieu du bloc
-            int bonusY = newBlock.getY() - 15; // génère bonus au-dessus du bloc
-            bonus.add(new Bonus(bonusX, bonusY, bonusImage));
-        }else {
-
-        }**/
-
-        /**f(Math.random() < 0.1) {
-            int bonusX = newBlock.getX() + (newBlock.getWidth() / 2) - 10; //génère bonus au milieu du bloc
-            int bonusY = newBlock.getY() - 15; // génère bonus au-dessus du bloc
-            bonus.add(new Bonus(bonusX, bonusY, bonusImage));
-        }**/
-
-
-        
     }
 
     //genere des bonus aléatoirement
@@ -107,7 +81,7 @@ public class Field {
         Random rand = new Random();
         for (Block b : ensBlock) {
             if (b instanceof MovingBlock) { //si un bloc = instance de movingblock, on update le block
-                if (b.getBonus()== 0 && rand.nextDouble() < 0.5){
+                if (b.getBonus()== 0 && rand.nextDouble() < 0.25){
                     if (rand.nextInt(2) == 1) {
                         int bonusX = b.getX() + rand.nextInt(b.getWidth() - 15);
                         int bonusY = b.getY() - 15;
@@ -116,7 +90,7 @@ public class Field {
                     }
                 }
             }
-            else if (b.getBonus()== 0 && rand.nextDouble() < 0.5) {
+            else if (b.getBonus()== 0 && rand.nextDouble() < 0.25) {
                 if (rand.nextInt(2) == 1) {
                     int bonusX = b.getX() + rand.nextInt(b.getWidth() - 15);
                     int bonusY = b.getY() - 15;
@@ -136,8 +110,6 @@ public class Field {
         bonus.removeIf(b -> {
             if (b.bonusCollecte(axel)) {
                 axel.incrementScore(100);
-                Sound sound = new Sound("src/coinSound.WAV");// ajoute 100 pts au score
-                sound.playOnce(); //joue le son
                 return true;
             }
             return false;
@@ -145,6 +117,7 @@ public class Field {
     }
 
 
+    //augmente le niveau du jeu
     public void incrementeDifficulte() {
         level++;
         scrollSpeed ++;
@@ -160,8 +133,6 @@ public class Field {
         }
         return ensBlock.get(ensBlock.size() - 1).getY();
     }
-
-
 
     public int getBottom() {
         return bottom;

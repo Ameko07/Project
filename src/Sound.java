@@ -37,6 +37,7 @@ public class Sound {
         }
     }
 
+    // joue un son une fois
     public void playOnce() {
         if (clip != null) {
             clip.stop(); // Arrête le son si déjà en lecture
@@ -46,6 +47,7 @@ public class Sound {
     }
 
 
+    //teste si un son est en train d'être joué
     public boolean isPlaying() {
         return clip != null && clip.isRunning();
     }

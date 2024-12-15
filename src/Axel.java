@@ -95,9 +95,8 @@ public class Axel {
     }
 
 
-    // setting bolean attribut
 
-
+    // setter bolean attribut
 
     /**
      * setter setJumping()
@@ -225,6 +224,7 @@ public class Axel {
             if(checkCollision()) {
                 dy = 0;
 
+            //Axel plonge à une vitesse maximum
             }
             if (dy < MAX_FALL_SPEED) {
                 dy = (int) MAX_FALL_SPEED;
@@ -234,6 +234,7 @@ public class Axel {
                 dy = dy + (int) DIVE_SPEED;
             }
         }
+        //Si Axel est sur un bloc, il s'arrête de tomber
         if (checkCollision()) {
             falling = false;
             dy = 0;
@@ -300,8 +301,9 @@ public class Axel {
         });
     }
 
-    //chepa comment le documenter
-    /****/
+    /** méthode actualisant la position x et y d'Axel selon les mouvements (vitesses de mouvement)
+     * calcule le score de jeu selon la position d'Axel
+     **/
     public void update() {
         computeMove(); // Calcule les déplacements
         x = x + dx;
@@ -315,4 +317,4 @@ public class Axel {
 
     }
 }
-//test
+

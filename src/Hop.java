@@ -15,10 +15,9 @@ public class Hop {
     private Timer timer;
     private GamePanel gamePanel;
     private JLabel score;
-    private boolean started = false; //le défilement du terrain commence quand c'est true
+    private boolean started = false; //le défilement du terrain commence lorsque c'est true
     private Sound backgroundMusic;
     private Sound deathSound;
-    private Sound bonusSound;
 
 
     public Hop() {
@@ -54,7 +53,6 @@ public class Hop {
         backgroundMusic = new Sound ("src/Rest_Area.WAV");
         backgroundMusic.loop();
         deathSound = new Sound("src/catmeowing.WAV");
-        bonusSound = new Sound("src/bonus.wav");
 
         timer = new Timer(DELAY, (ActionEvent e) -> round());
         timer.start();
