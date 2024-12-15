@@ -144,7 +144,9 @@ public class GamePanel extends JPanel implements KeyListener  {
         // boolean if and else are also good
         switch (keyCode){
 
-            case KeyEvent.VK_UP: axel.setJumping(true);break;
+            case KeyEvent.VK_UP: axel.setJumping(true);
+
+                break;
             case KeyEvent.VK_DOWN: axel.setDiving(true);break;
             case KeyEvent.VK_LEFT: axel.setLeft(true);break;
             case KeyEvent.VK_RIGHT: axel.setRight(true);break;
@@ -162,10 +164,7 @@ public class GamePanel extends JPanel implements KeyListener  {
         // boolean if and else are also good
         switch (keyCode){
 
-            case KeyEvent.VK_UP:
-                axel.setJumping(false);
-                new Sound ("src/coinSound.WAV").playOnce("test");
-                break;
+            case KeyEvent.VK_UP: axel.setJumping(false);
             case KeyEvent.VK_DOWN: axel.setDiving(false);break;
             case KeyEvent.VK_LEFT: axel.setLeft(false);break;
             case KeyEvent.VK_RIGHT: axel.setRight(false);break;

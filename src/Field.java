@@ -14,8 +14,8 @@ public class Field {
 
     public final int width, height;
     private int bottom, top; // bottom and top altitude
-    private int scrollSpeed;
     private boolean scrolling;
+    private int scrollSpeed;
     private int maxBlockWidth;
     private int level;
     private ArrayList<Bonus> bonus;
@@ -25,11 +25,11 @@ public class Field {
     private ArrayList<Block> ensBlock ;
 
 
-    //constructeur
     public Field(int width, int height){
         this.width = width;
         this.height = height;
         this.ensBlock = new ArrayList<>();
+
 
     }
 
@@ -51,8 +51,6 @@ public class Field {
 
     }
 
-    /**methode generateBlocks()
-     * remplit ensBlock des premières block avant le défilement **/
     public void generateBlocks() {
         int altitude = height - START_ALTITUDE;
         while (altitude > 0) {
@@ -60,8 +58,7 @@ public class Field {
             altitude -= ALTITUDE_GAP;
         }
     }
-    /**methode generateNewBlocks()
-     * génère nouveaux blocs lors du défilement**/
+    //génère nouveaux blocs lors du défilement
     private void generateNewBlocks() {
         if (ensBlock.isEmpty()) {
             // Si aucun bloc, commencer à générer à partir de top
@@ -76,7 +73,7 @@ public class Field {
 
         Block newBlock;
         //Génère aléatoirement bloc normal OU block qui bouge
-        if (level >= 3 && Math.random() < 0.3) {
+        if (level >= 2 && Math.random() < 0.3) {
             newBlock = new MovingBlock(newAltitude, width, maxBlockWidth);
         }
         else {
@@ -84,18 +81,33 @@ public class Field {
         }
         ensBlock.add(newBlock);
 
+        //générer un bonus sur les blocs (aléatoire)
+        // choisir aléatoirement les block
+        /**Random rand = new Random();
+        if (rand.nextInt(2)==1){
+            int bonusX = newBlock.getX() + (newBlock.getWidth() / 2) - 10; //génère bonus au milieu du bloc
+            int bonusY = newBlock.getY() - 15; // génère bonus au-dessus du bloc
+            bonus.add(new Bonus(bonusX, bonusY, bonusImage));
+        }else {
+
+        }**/
+
+        /**f(Math.random() < 0.1) {
+            int bonusX = newBlock.getX() + (newBlock.getWidth() / 2) - 10; //génère bonus au milieu du bloc
+            int bonusY = newBlock.getY() - 15; // génère bonus au-dessus du bloc
+            bonus.add(new Bonus(bonusX, bonusY, bonusImage));
+        }**/
+
+
+        
     }
 
-    /**methode generateBonus()
-     * genere des bonus aléatoirement en choisissant au hasard le block auquel le bonus apparaitra**/
+    //genere des bonus aléatoirement
     private void generateBonus() {
         Random rand = new Random();
-        //savoir quel est le type de block d'apparitrion
         for (Block b : ensBlock) {
-
-            if (b instanceof MovingBlock) { //si un bloc = instance de movingblock, on update le block et le bonus suivra le mouvement du bloc
-                if (b.getBonus()== 0){
-
+            if (b instanceof MovingBlock) { //si un bloc = instance de movingblock, on update le block
+                if (b.getBonus()== 0 && rand.nextDouble() < 0.25){
                     if (rand.nextInt(2) == 1) {
                         int bonusX = b.getX() + rand.nextInt(b.getWidth() - 15);
                         int bonusY = b.getY() - 15;
@@ -104,8 +116,7 @@ public class Field {
                     }
                 }
             }
-            // sinon ça sera un bonus noraml
-            if (b.getBonus()== 0) {
+            if (b.getBonus()== 0 && rand.nextDouble() < 0.5) {
                 if (rand.nextInt(2) == 1) {
                     int bonusX = b.getX() + rand.nextInt(b.getWidth() - 15);
                     int bonusY = b.getY() - 15;
@@ -120,23 +131,20 @@ public class Field {
         }
     }
 
-    /**methode verifierCollecteBonus()
-     * @param axel: Axel
-     * @return boolean
-     * supprime le bonus lorsque axel le collecte et retourne true si le bonus a été collecté sinon false
-     **/
+    //supprime le bonus lorsque axel le collecte
     public void verifierCollecteBonus(Axel axel) {
         bonus.removeIf(b -> {
             if (b.bonusCollecte(axel)) {
-                axel.incrementScore(100); // ajoute 100 pts au score
+                axel.incrementScore(100);
+                Sound sound = new Sound("src/coinSound.WAV");// ajoute 100 pts au score
+                sound.playOnce(); //joue le son
                 return true;
             }
             return false;
         });
     }
 
-    /**methode incrementeDifficulte()
-     * augmentre level , scrollSpeed et réduit la taille des blocs **/
+
     public void incrementeDifficulte() {
         level++;
         scrollSpeed ++;
@@ -146,8 +154,6 @@ public class Field {
 
 
     // getter
-    /**getter getHighestBlockAktitude
-     * @return le block le plus haut**/
     private int getHighestBlockAltitude() {
         if (ensBlock.isEmpty()) {
             return top; // si aucun bloc retourner top
@@ -156,7 +162,7 @@ public class Field {
     }
 
 
-    //les 2 sont inversé en raison de l'emplacement des coordonnée origine de la fenêtre
+
     public int getBottom() {
         return bottom;
     }
@@ -171,39 +177,27 @@ public class Field {
         return ensBlock;
     }
 
-    /**getter getWidth()
-     * @return width**/
     public int getWidth() {
         return width;
     }
 
-    /**getter getHeiht()
-     * @return height**/
     public int getHeight() {
         return height;
     }
 
-    /**getter  getLevel()
-     * @return level**/
     public int getLevel() {
         return level;
     }
 
-    /**getter getMaxBlockWidth()
-     * @return maxBlockWidth**/
     public int getMaxBlockWidth() {
         return maxBlockWidth;
     }
 
-    /**getter getBonus()
-     * @return bonus**/
     public ArrayList<Bonus> getBonus() {
         return bonus;
     }
 
     //setter
-    /**setter setScrolling
-     * active le scroll de l'écrant **/
     public void setScrolling(boolean scrolling) {
         this.scrolling = scrolling;
     }

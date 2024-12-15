@@ -30,19 +30,6 @@ public class Sound {
     }
 
 
-    //joue musique une fois
-    public static void playOnce(String soundName) {
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/" + soundName + ".wav"));
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
     // arrête le son
     public void stop() {
         if (clip != null && clip.isRunning()) {
@@ -50,10 +37,20 @@ public class Sound {
         }
     }
 
-    // vérifie si le son est en train de jouer
+    public void playOnce() {
+        if (clip != null) {
+            clip.stop(); // Arrête le son si déjà en lecture
+            clip.setFramePosition(0); // Repositionne au début du fichier
+            clip.start();
+        }
+    }
+
+
     public boolean isPlaying() {
         return clip != null && clip.isRunning();
     }
+
 }
+
 
 

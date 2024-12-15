@@ -9,20 +9,27 @@ public class Hop {
     public static final int DELAY = 40;
     private static final int[] LEVELS = {1000, 1500, 2500, 3750, 5000, 7000};
 
-    private final JFrame frame;
-    private final Field field;
-    private final Axel axel;
+    private JFrame frame;
+    private Field field;
+    private Axel axel;
     private Timer timer;
     private GamePanel gamePanel;
     private JLabel score;
     private boolean started = false; //le défilement du terrain commence quand c'est true
     private Sound backgroundMusic;
-    private Sound jumpSound;
+    private Sound deathSound;
     private Sound bonusSound;
 
+
     public Hop() {
+        new MainMenu(this);
+    }
+
+    public void startGame() {
         ArrayList<Block> block = new ArrayList<>();
-        this.field = new Field(block,WIDTH, HEIGHT);
+        field = new Field(block,WIDTH, HEIGHT);
+        this.gamePanel = new GamePanel(field, null); // Initialisation temporaire
+
         Block b = field.getEnsBlock().get(0);
         this.axel = new Axel(field, b.getX()+b.getWidth()/2, b.getY()-gamePanel.getAxelWidth());
         this.gamePanel = new GamePanel(field, axel);
@@ -44,11 +51,14 @@ public class Hop {
         frame.setVisible(true);
 
         //Ajout de la musique et autres sons
-
         backgroundMusic = new Sound ("src/ValorantOST.WAV");
         backgroundMusic.loop();
-        jumpSound = new Sound("src/coinSound.WAV");
-        bonusSound = new Sound("src/coinSound.WAV");
+        deathSound = new Sound("src/catmeowing.WAV");
+        bonusSound = new Sound("src/bonus.wav");
+
+        timer = new Timer(DELAY, (ActionEvent e) -> round());
+        timer.start();
+
     }
 
     private void levelUp() {
@@ -58,6 +68,7 @@ public class Hop {
             field.incrementeDifficulte();
         }
     }
+
 
 
 
@@ -75,7 +86,14 @@ public class Hop {
             if (backgroundMusic.isPlaying()) {
                 backgroundMusic.stop();  // Arrêter la musique
             }
+            if (!deathSound.isPlaying()) {
+                deathSound.playOnce();
+            }
+            gameOver();
+            return;
         }
+
+
         levelUp();
         score.setText("score : " + axel.getScore() + " | Level : " + field.getLevel());
         frame.repaint();
@@ -118,7 +136,6 @@ public class Hop {
         game.timer = new Timer(DELAY, (ActionEvent e) -> {
             game.round();
             if (game.over()) {
-                //System.out.println("mort");
                 game.gameOver();
             }
         });
