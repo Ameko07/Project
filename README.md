@@ -45,21 +45,21 @@ Aucune bibliothèque hors les bibliothèques standard de Java ne sont requises.
 
 Structure du projet
 -
-*Axel.java : Gère le personnage principal, ses mouvements et ses interactions.
+* Axel.java : Gère le personnage principal, ses mouvements et ses interactions.
 
-*Field.java : Gère l'environnement du jeu, y compris les blocs, les bonus et les pièges.
+* Field.java : Gère l'environnement du jeu, y compris les blocs, les bonus et les pièges.
 
-*Block.java : Définit les blocs
+* Block.java : Définit les blocs
 
-*MovingBlock : Définit les blocs mobiles
+* MovingBlock : Définit les blocs mobiles
 
-*Bonus.java : Définit les bonus à collecter.
+* Bonus.java : Définit les bonus à collecter.
 
-*Sound.java : Gère la musique de fond et les effets sonores.
+* Sound.java : Gère la musique de fond et les effets sonores.
 
-*GamePanel.java : Gère l'affichage graphique et les entrées clavier.
+* GamePanel.java : Gère l'affichage graphique et les entrées clavier.
 
-*Hop.java : Classe principale qui initialise le jeu et gère le menu principal.
+* Hop.java : Classe principale qui initialise le jeu et gère le menu principal.
 
-*MainMenu.java : Affichage du menu principal par lequel on lance/quitte le jeu.
+* MainMenu.java : Affichage du menu principal par lequel on lance/quitte le jeu.
 
