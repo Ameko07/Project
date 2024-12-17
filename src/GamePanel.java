@@ -49,7 +49,8 @@ public class GamePanel extends JPanel implements KeyListener  {
         blockImage = new ImageIcon ("src/grassPlatform.png").getImage();
 
         //charger image de background
-        background = new ImageIcon("src/backgroundPixel(1).jpg").getImage();
+        background = new ImageIcon("src/" +
+                "background(3).jpg").getImage();
 
     }
 
